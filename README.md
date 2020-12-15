@@ -39,7 +39,7 @@ int main() {
     std::string testStr = cfg.getString("test"); // may throw std::out_of_range if key "test" is not in .ini file, so always surround with try/catch and check with .hasKey("test") inb4
     int i = cfg.getInt("i"); // may throw std::out_of_range and std::invalid_arg as it is converting string to int with std::stoi
     float f = cfg.getFloat("f"); // same with stof
-    double d = cfg.getFloat("d"); // same with stod
+    double d = cfg.getDouble("d"); // same with stod
     std::cout << "testStr = " << testStr << "; i = " << i << "; f = " << f << "; d = " << d << std::endl;
 
     // you may specify required keys in cfg like so:
