@@ -71,7 +71,7 @@ public:
         return stof(vals_.at(key));
     }
     // return value by key as double. May throw std::out_of_range and std::invalid_arg
-    float getDouble(const std::string& key) const {
+    double getDouble(const std::string& key) const {
         return stod(vals_.at(key));
     }
 private:
