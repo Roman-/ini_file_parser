@@ -21,9 +21,17 @@ static inline std::string trim(std::string s) {
     }).base(), s.end());
     return s;
 }
+
+// removes single and double quotes from the beginning and end of the string, e.g. "abc" => abc
+std::string unQuote(std::string s) {
+    while (s.size() > 1 && (s.front() == '\"' || s.front() == '\'') && s.front() == s.back())
+        s = s.substr(1, s.size() - 2);
+    return s;
+}
+
 class CfgParser {
 public:
-    CfgParser(const string& cfgFilePath) {
+    CfgParser(const string& cfgFilePath, const std::vector<std::string>& mustHaveKeys = {}) {
         std::ifstream file(cfgFilePath.c_str());
         if (!file.is_open()) {
             std::cerr << "CfgParser: can\'t open config file: " << cfgFilePath << std::endl;
@@ -41,13 +49,19 @@ public:
             // line without 'equal' sign
             if (ioEqual == std::string::npos)
                 continue;
-            std::string keyString = trim(std::move(line.substr(0, ioEqual)));
-            std::string valString = trim(std::move(line.substr(ioEqual+1)));
+            std::string keyString = unQuote(trim(line.substr(0, ioEqual)));
+            std::string valString = unQuote(trim(line.substr(ioEqual+1)));
             if (keyString.empty() || valString.empty())
                 std::cerr << "Config file " << cfgFilePath << ", line #" << lineIndex << " is bad. Line:\n" << line << std::endl;
             else
                 vals_[keyString] = valString; // latter key overwrites
         }
+        // check must-have fileds
+        for (const std::string& k: mustHaveKeys) {
+            if (!hasKey(k)) {
+                std::cerr << "Config file " << cfgFilePath << " does not have required key \"" << k << "\"" << std::endl;
+                return; // leaving isValid = false
+        }   }
         isValid_ = true;
     }
 

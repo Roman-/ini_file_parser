@@ -23,6 +23,10 @@ x=2
 x=4
 # generally, all lines are ignored as long as there is no '=' sign
 this line will be ignored
+# strings may be enclosed in quotes
+my_string="I am a string"
+# the above is equivalent to
+my_string=I am a string
 ```
 
 # Usage
@@ -37,6 +41,11 @@ int main() {
     float f = cfg.getFloat("f"); // same with stof
     double d = cfg.getFloat("d"); // same with stod
     std::cout << "testStr = " << testStr << "; i = " << i << "; f = " << f << "; d = " << d << std::endl;
+
+    // you may specify required keys in cfg like so:
+    CfgParser cfgWithRequiredKeys("/path/to/cfg.ini", {"absentKey1", "absentKey2"});
+    // if either of these keys is not defined in cfg file, then
+    cfgWithRequiredKeys.isValid(); // will return false
 }
 ```
 output:
