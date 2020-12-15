@@ -59,7 +59,7 @@ Add this to your CMakeLists.txt:
 ```
 FetchContent_Declare(ini_parser
     GIT_REPOSITORY https://github.com/Roman-/ini_file_parser.git
-    GIT_TAG        1.0
+    GIT_TAG        1.0 # replace this with the latest tag
 )
 FetchContent_MakeAvailable(ini_parser)
 include_directories(${ini_parser_SOURCE_DIR})
