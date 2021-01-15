@@ -6,6 +6,7 @@
 #define CONFIGPARSER_H
 
 #include <string>
+#include <vector>
 #include <fstream>
 #include <map>
 #include <algorithm>
