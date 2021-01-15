@@ -57,6 +57,8 @@ testStr = I am test string; i = 42; f = 3.14159; d = 0.123456789
 # install
 Add this to your CMakeLists.txt:
 ```
+include(FetchContent)
+
 FetchContent_Declare(ini_parser
     GIT_REPOSITORY https://github.com/Roman-/ini_file_parser.git
     GIT_TAG        1.0 # replace this with the latest tag
