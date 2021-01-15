@@ -31,7 +31,7 @@ std::string unQuote(std::string s) {
 
 class CfgParser {
 public:
-    CfgParser(const string& cfgFilePath, const std::vector<std::string>& mustHaveKeys = {}) {
+    CfgParser(const std::string& cfgFilePath, const std::vector<std::string>& mustHaveKeys = {}) {
         std::ifstream file(cfgFilePath.c_str());
         if (!file.is_open()) {
             std::cerr << "CfgParser: can\'t open config file: " << cfgFilePath << std::endl;
@@ -41,8 +41,8 @@ public:
         int lineIndex = 0;
         while (std::getline(file, line)) {
             ++lineIndex;
-            int ioHash = line.find('#');
-            int ioEqual = line.find('=');
+            size_t ioHash = line.find('#');
+            size_t ioEqual = line.find('=');
             // comment line
             if (ioHash != std::string::npos && (ioEqual == std::string::npos || ioEqual > ioHash))
                 continue;
