@@ -70,24 +70,47 @@ public:
         return isValid_;
     }
     // returns true if config contains value
-    bool hasKey(const std::string& key) {
+    bool hasKey(const std::string& key) const {
         return vals_.find(key) != vals_.cend();
     }
-    // return value by key as integer. May throw std::out_of_range
+    // return string value by key. If key is not found, throws std::out_of_range
     std::string getString(const std::string& key) const {
         return vals_.at(key);
     }
-    // return value by key as integer. May throw std::out_of_range and std::invalid_arg
+    // return string value by key. If key is not found, returns provided default value
+    std::string getString(const std::string& key, const std::string& defaultValue) const {
+        auto v = vals_.find(key);
+        return (v == vals_.cend()) ? defaultValue : v->second;
+    }
+    // return int value by key. May throw std::out_of_range and std::invalid_arg
     int getInt(const std::string& key) const {
         return stoi(vals_.at(key));
     }
-    // return value by key as float. May throw std::out_of_range and std::invalid_arg
+    // return string value by key. If key is not found, returns provided default value
+    // may throw std::invalid_arg
+    int getInt(const std::string& key, int defaultValue) const {
+        auto v = vals_.find(key);
+        return (v == vals_.cend()) ? defaultValue : stoi(v->second);
+    }
+    // return float value by key. May throw std::out_of_range and std::invalid_arg
     float getFloat(const std::string& key) const {
         return stof(vals_.at(key));
+    }
+    // return float value by key. If key is not found, returns provided default value
+    // may throw std::invalid_arg
+    int getFloat(const std::string& key, float defaultValue) const {
+        auto v = vals_.find(key);
+        return (v == vals_.cend()) ? defaultValue : stof(v->second);
     }
     // return value by key as double. May throw std::out_of_range and std::invalid_arg
     double getDouble(const std::string& key) const {
         return stod(vals_.at(key));
+    }
+    // return double value by key. If key is not found, returns provided default value
+    // may throw std::invalid_arg
+    int getDouble(const std::string& key, double defaultValue) const {
+        auto v = vals_.find(key);
+        return (v == vals_.cend()) ? defaultValue : stod(v->second);
     }
 private:
     // values from cfg file

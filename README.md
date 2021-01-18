@@ -42,15 +42,20 @@ int main() {
     double d = cfg.getDouble("d"); // same with stod
     std::cout << "testStr = " << testStr << "; i = " << i << "; f = " << f << "; d = " << d << std::endl;
 
+    // default values. If second arg is provided, get() will not throw std::out_of_range (but may still throw std::invalid_arg)
+    int i2 = cfg.getInt("pictureWidth", 1024); // i2 = 1024 if otherwise is not specified in cfg
+
     // you may specify required keys in cfg like so:
-    CfgParser cfgWithRequiredKeys("/path/to/cfg.ini", {"absentKey1", "absentKey2"});
+    CfgParser cfgWithRequiredKeys("/path/to/badcfg.ini", {"absentKey1", "absentKey2"});
     // if either of these keys is not defined in cfg file, then
     cfgWithRequiredKeys.isValid(); // will return false
+
 }
 ```
 output:
 ```
 testStr = I am test string; i = 42; f = 3.14159; d = 0.123456789
+Config file /path/to/badcfg.ini does not have required key "absentKey1"
 ```
 
 
