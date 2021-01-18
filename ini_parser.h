@@ -12,7 +12,6 @@
 #include <map>
 #include <algorithm>
 
-namespace {
 // remove whitespace characters from left and right of the string
 static inline std::string trim(std::string s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
@@ -25,7 +24,7 @@ static inline std::string trim(std::string s) {
 }
 
 // removes single and double quotes from the beginning and end of the string, e.g. "abc" => abc
-std::string unQuote(std::string s) {
+static std::string unQuote(std::string s) {
     while (s.size() > 1 && (s.front() == '\"' || s.front() == '\'') && s.front() == s.back())
         s = s.substr(1, s.size() - 2);
     return s;
@@ -95,6 +94,5 @@ private:
     std::map<std::string, std::string> vals_;
     bool isValid_ = false;
 };
-}
 
 #endif // CONFIGPARSER_H
