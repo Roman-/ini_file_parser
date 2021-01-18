@@ -66,7 +66,7 @@ include(FetchContent)
 
 FetchContent_Declare(ini_parser
     GIT_REPOSITORY https://github.com/Roman-/ini_file_parser.git
-    GIT_TAG        1.5 # replace this with the latest tag
+    GIT_TAG        2.1 # replace this with the latest tag
 )
 FetchContent_MakeAvailable(ini_parser)
 include_directories(${ini_parser_SOURCE_DIR})
